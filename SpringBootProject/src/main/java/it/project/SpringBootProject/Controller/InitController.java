@@ -3,7 +3,7 @@ package it.project.SpringBootProject.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import it.project.SpringBootProject.Model.ConnectionAdapter;
+import it.project.SpringBootProject.Service.ConnectionAdapter;
 
 @RestController
 public class InitController {
