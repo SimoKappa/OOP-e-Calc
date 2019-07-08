@@ -3,6 +3,7 @@ package it.project.SpringBootProject.Service;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import au.com.bytecode.opencsv.CSVReader;
 import it.project.SpringBootProject.Model.Report;
+import it.project.SpringBootProject.Model.Metadata;
 
 @Service
 public class ReportService {

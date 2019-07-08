@@ -8,7 +8,7 @@ import it.project.SpringBootProject.Service.ConnectionAdapter;
 @RestController
 public class InitController {
 	
-	@RequestMapping()
+	@RequestMapping() 
 	@ResponseBody
 	public String defaultMethod()
 	{
