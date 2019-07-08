@@ -2,60 +2,46 @@ package it.project.SpringBootProject.Model;
 
 public class Report {
 	private String country;
-	private int refPeriod;
-	private String item1;
-	private String item2;
+	private String refPeriod;
+	private String item;
 	private String code;
-	private double value;
-	private int extraction;
+	private String value;
+	private String extraction;
 	private int nca;
+	
+	public Report (String countryString, String refPeriodString, String itemString, String codeString, String valueString, String extractionString, int nca) {
+		this.country = countryString;
+		this.refPeriod = refPeriodString;
+		this.item = itemString;
+		this.code = codeString;
+		this.value = valueString;
+		this.extraction = extractionString;
+		this.nca = nca;
+	}
 	
 	public String getCountry() {
 		return country;
 	}
-	public void setCountry(String country) {
-		this.country = country;
-	}
-	public int getRefPeriod() {
+	public String getRefPeriod() {
 		return refPeriod;
 	}
-	public void setRefPeriod(int refPeriod) {
-		this.refPeriod = refPeriod;
-	}
-	public String getItem1() {
-		return item1;
-	}
-	public void setItem1(String item1) {
-		this.item1 = item1;
-	}
-	public String getItem2() {
-		return item2;
-	}
-	public void setItem2(String item2) {
-		this.item2 = item2;
+	public String getItem() {
+		return item;
 	}
 	public String getCode() {
 		return code;
 	}
-	public void setCode(String code) {
-		this.code = code;
-	}
-	public double getValue() {
+	public String getValue() {
 		return value;
 	}
-	public void setValue(double value) {
-		this.value = value;
-	}
-	public int getExtraction() {
+	public String getExtraction() {
 		return extraction;
-	}
-	public void setExtraction(int extraction) {
-		this.extraction = extraction;
 	}
 	public int getNca() {
 		return nca;
 	}
-	public void setNca(int nca) {
-		this.nca = nca;
+	
+	public String toString() {
+		return "Record [ country = " + this.country + ", refPeriod = " + this.refPeriod + ", item = " + this.item + "]";
 	}
 }
