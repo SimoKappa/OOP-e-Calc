@@ -4,11 +4,13 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import it.project.SpringBootProject.Model.Metadata;
 import it.project.SpringBootProject.Model.Report;
 
 @Service
@@ -61,6 +63,7 @@ public class ReportService {
 	{
 		return reports;
 	}
+	
 	
 	private static void createReport (String[] data) {
 		String countryString = data[0];
