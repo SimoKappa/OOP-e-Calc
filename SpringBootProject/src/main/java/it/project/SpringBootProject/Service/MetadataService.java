@@ -28,6 +28,7 @@ public class MetadataService {
 		metadata.add(new Metadata("code", attribs[3], "String"));
 		metadata.add(new Metadata("value", attribs[4], "Double"));
 		metadata.add(new Metadata("extraction", attribs[5], "Integer"));
+		metadata.add(new Metadata("nca", attribs[6], "Integer"));
 		}catch (FileNotFoundException e)
 		{
 			e.printStackTrace();
