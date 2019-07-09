@@ -40,8 +40,4 @@ public class Report {
 	public int getNca() {
 		return nca;
 	}
-	
-	public String toString() {
-		return "Record [ country = " + this.country + ", refPeriod = " + this.refPeriod + ", item = " + this.item + "]";
-	}
 }
