@@ -66,8 +66,13 @@ public class ReportService {
 		Double valueString = Double.parseDouble(data[4]);
 		int extraction = Integer.parseInt(data[5]);
 		int nca = Integer.parseInt(data[6]);
+		if (data.length == 7)
+		{
 		reports.add(
 				new Report(countryString, refPeriodString, itemString, codeString, valueString, extraction, nca));
+		}else {
+			reports.add(new Report("Invalid data", "Invalid data", "Invalid data", "Invalid data", 0, 0, 0));
+		}
 	}
 
 }
