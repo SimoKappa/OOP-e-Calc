@@ -23,19 +23,8 @@ public class ReportService {
 
 	private static List<Report> reports = new ArrayList<>();
 	private static List<Stats> stats = new ArrayList<>();
-	
-	static {
-		/*
-		 * try { BufferedReader reader = new BufferedReader(new
-		 * FileReader("csvfile.csv")); try{ String line; int i =0; while ((line =
-		 * reader.readLine())!=null) { String [] data = line.split(","); //divide la
-		 * stringa quando c'è la virgola for (String aStrings : data) {
-		 * aStrings.replaceAll("/\".*?\"/", ""); System.out.println(aStrings); } if
-		 * (i!=0) { createReport(data); } i++; } }catch(IOException e) {
-		 * e.printStackTrace(); } }catch (FileNotFoundException e) {
-		 * e.printStackTrace(); }
-		 */
 
+	public void init() {
 		String fileString = "csvfile.csv";
 		CSVReader reader = null;
 		try {
@@ -43,10 +32,6 @@ public class ReportService {
 			String[] lineStrings;
 			int i = 0;
 			while ((lineStrings = reader.readNext()) != null) {
-				// System.out.println("country = " + lineStrings[0] + " " + lineStrings[1] + " "
-				// + lineStrings[2] + " " + lineStrings[3] + " " + lineStrings[4] + " " +
-				// lineStrings[5] + " " + lineStrings[6]);
-				//lineStrings[2].replaceAll("[\ufffd]", "");
 				lineStrings[2] = lineStrings[2].replaceAll("\uFFFD", "");
 				if (i != 0) {
 					createReport(lineStrings);
@@ -72,35 +57,44 @@ public class ReportService {
 		Double valueString = Double.parseDouble(data[4]);
 		int extraction = Integer.parseInt(data[5]);
 		int nca = Integer.parseInt(data[6]);
-		if (data.length == 7)
-		{
-		reports.add(
-				new Report(countryString, refPeriodString, itemString, codeString, valueString, extraction, nca));
-		}else {
+		if (data.length == 7) {
+			reports.add(
+					new Report(countryString, refPeriodString, itemString, codeString, valueString, extraction, nca));
+		} else {
 			reports.add(new Report("Invalid data", "Invalid data", "Invalid data", "Invalid data", 0, 0, 0));
 		}
 	}
-	
-	public List<Stats> reportsStats (String param){
+
+	public List<Stats> reportsStats(String param) {
 		int i = 0;
-		double somma=0, n=0, min=0, max=0, dev=0, sumdev=0, dif=0;
+		double somma = 0, n = 0, min = 0, max = 0, dev = 0, sumdev = 0, dif = 0;
 		double avg = 0;
 		String valString = new String("value");
 		String extString = new String("extraction");
 		String ncaString = new String("nca");
-		if (param.equals(valString)) i=1; else if(param.equals(extString)) i=2; else if (param.equals(ncaString)) i=3;
+		if (param.equals(valString))
+			i = 1;
+		else if (param.equals(extString))
+			i = 2;
+		else if (param.equals(ncaString))
+			i = 3;
+		else return stats;
 		switch (i) {
 		case 1:
 			for (Report report : reports) {
 				somma += report.getValue();
-				if (n == 0) max = min = report.getValue();
-				else if (report.getValue() < min) min = report.getValue();
-				else if (report.getValue() > max) max = report.getValue();
+				if (n == 0)
+					max = min = report.getValue();
+				else if (report.getValue() < min)
+					min = report.getValue();
+				else if (report.getValue() > max)
+					max = report.getValue();
+				
 				n++;
 			}
-			avg = somma/n;
+			avg = somma / n;
 			for (Report report : reports) {
-				dif = report.getValue()-avg;
+				dif = report.getValue() - avg;
 				dif = Math.pow(dif, 2);
 				sumdev += dif;
 			}
@@ -108,14 +102,17 @@ public class ReportService {
 		case 2:
 			for (Report report : reports) {
 				somma += report.getExtraction();
-				if (n == 0) max = min = report.getExtraction();
-				else if (report.getExtraction() < min) min = report.getExtraction();
-				else if (report.getExtraction() > max) max = report.getExtraction();
+				if (n == 0)
+					max = min = report.getExtraction();
+				else if (report.getExtraction() < min)
+					min = report.getExtraction();
+				else if (report.getExtraction() > max)
+					max = report.getExtraction();
 				n++;
 			}
-			avg = somma/n;
+			avg = somma / n;
 			for (Report report : reports) {
-				dif = report.getExtraction()-avg;
+				dif = report.getExtraction() - avg;
 				dif = Math.pow(dif, 2);
 				sumdev += dif;
 			}
@@ -123,14 +120,17 @@ public class ReportService {
 		case 3:
 			for (Report report : reports) {
 				somma += report.getNca();
-				if (n == 0) max = min = report.getNca();
-				else if (report.getNca() < min) min = report.getNca();
-				else if (report.getNca() > max) max = report.getNca();
+				if (n == 0)
+					max = min = report.getNca();
+				else if (report.getNca() < min)
+					min = report.getNca();
+				else if (report.getNca() > max)
+					max = report.getNca();
 				n++;
 			}
-			avg = somma/n;
+			avg = somma / n;
 			for (Report report : reports) {
-				dif = report.getNca()-avg;
+				dif = report.getNca() - avg;
 				dif = Math.pow(dif, 2);
 				sumdev += dif;
 			}
@@ -138,7 +138,7 @@ public class ReportService {
 		default:
 			break;
 		}
-		dev = sumdev/n;
+		dev = sumdev / n;
 		dev = Math.sqrt(dev);
 		avg = tronca(avg);
 		somma = tronca(somma);
@@ -146,7 +146,7 @@ public class ReportService {
 		stats.add(new Stats(param, avg, min, max, somma, n, dev));
 		return stats;
 	}
-	
+
 	private static double tronca(double a) {
 		a *= 10000000;
 		a = Math.floor(a);

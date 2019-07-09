@@ -30,7 +30,7 @@ public class ReportController {
 	  }
 	  
 	  @GetMapping("/stats")
-	  public List<Stats> reportsStats (@RequestParam(name="param", defaultValue="value")String param) {
+	  public List<Stats> reportsStats (@RequestParam(name="param", defaultValue="none")String param) {
 		  return reportservice.reportsStats(param);
 	  }
 }
