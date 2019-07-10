@@ -157,6 +157,7 @@ public class ReportService {
 		String codeString = new String("code");
 		if (param.equals(countryString)) {
 			for (Report report1 : reports) {
+				count = 0;
 				flag = true;
 				refString = report1.getCountry();
 				for (StatsStr str : statsStr) {
@@ -178,6 +179,7 @@ public class ReportService {
 			}
 		} else if (param.equals(refPreiodString)) {
 			for (Report report1 : reports) {
+				count = 0;
 				flag = true;
 				refString = report1.getRefPeriod();
 				for (StatsStr str : statsStr) {
@@ -199,6 +201,7 @@ public class ReportService {
 			}
 		} else if (param.equals(itemString)) {
 			for (Report report1 : reports) {
+				count = 0;
 				flag = true;
 				refString = report1.getItem();
 				for (StatsStr str : statsStr) {
@@ -220,6 +223,7 @@ public class ReportService {
 			}
 		} else if (param.equals(codeString)) {
 			for (Report report1 : reports) {
+				count = 0;
 				flag = true;
 				refString = report1.getCode();
 				for (StatsStr str : statsStr) {

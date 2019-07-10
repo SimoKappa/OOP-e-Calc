@@ -6,7 +6,7 @@ public class StatsStr {
 	private String refPeriodString;
 	private String itemString;
 	private String codeString;
-	private int occ;
+	private int occorrenze;
 	
 	public StatsStr (String dataString, String countryString, String refPeriodString, String itemString, String codeString, int count) {
 		this.dataString = dataString;
@@ -14,15 +14,9 @@ public class StatsStr {
 		this.refPeriodString = refPeriodString;
 		this.itemString = itemString;
 		this.codeString = codeString;
-		this.occ = count;
+		this.occorrenze = count;
 	}
 	
-	public StatsStr (String dataString, String countryString, int count) {
-		this.dataString = dataString;
-		this.countryString = countryString;
-		this.occ = count;
-	}
-
 	public String getDataString() {
 		return dataString;
 	}
@@ -43,8 +37,8 @@ public class StatsStr {
 		return codeString;
 	}
 
-	public int getOcc() {
-		return occ;
+	public int getOccorrenze() {
+		return occorrenze;
 	}
 
 }
