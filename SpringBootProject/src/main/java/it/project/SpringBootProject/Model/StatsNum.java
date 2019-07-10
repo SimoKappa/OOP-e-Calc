@@ -1,6 +1,6 @@
 package it.project.SpringBootProject.Model;
 
-public class Stats {
+public class StatsNum {
 	private String data;
 	private double avg;
 	private double min;
@@ -9,7 +9,7 @@ public class Stats {
 	private double sum;
 	private double count;
 	
-	public Stats (String data, double avg, double min, double max, double sum, double count, double dev) {
+	public StatsNum (String data, double avg, double min, double max, double sum, double count, double dev) {
 		this.data = data;
 		this.avg = avg;
 		this.min = min;

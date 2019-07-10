@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import it.project.SpringBootProject.Model.Metadata;
 import it.project.SpringBootProject.Model.Report;
-import it.project.SpringBootProject.Model.Stats;
+import it.project.SpringBootProject.Model.StatsNum;
+import it.project.SpringBootProject.Model.StatsStr;
 import it.project.SpringBootProject.Service.MetadataService;
 import it.project.SpringBootProject.Service.ReportService;
 
@@ -29,8 +30,13 @@ public class ReportController {
 		  return metadataservice.getMetadata();
 	  }
 	  
-	  @GetMapping("/stats")
-	  public List<Stats> reportsStats (@RequestParam(name="param", defaultValue="none")String param) {
-		  return reportservice.reportsStats(param);
+	  @GetMapping("/reports/stats/num")
+	  public List<StatsNum> reportsStats (@RequestParam(name="param", defaultValue="none")String param) {
+		  return reportservice.reportsStatsNum(param);
+	  }
+	  
+	  @GetMapping("/reports/stats/str")
+	  public List<StatsStr> reportStatsStr (@RequestParam(name="param", defaultValue="none")String param) {
+		  return reportservice.reportStatsStr(param);
 	  }
 }
