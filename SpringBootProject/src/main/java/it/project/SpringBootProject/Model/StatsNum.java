@@ -7,9 +7,9 @@ public class StatsNum {
 	private double max;
 	private double dev;
 	private double sum;
-	private double count;
+	private int count;
 	
-	public StatsNum (String data, double avg, double min, double max, double sum, double count, double dev) {
+	public StatsNum (String data, double avg, double min, double max, double sum, int count, double dev) {
 		this.data = data;
 		this.avg = avg;
 		this.min = min;
@@ -43,7 +43,7 @@ public class StatsNum {
 		return sum;
 	}
 
-	public double getCount() {
+	public int getCount() {
 		return count;
 	}
 }

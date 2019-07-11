@@ -2,7 +2,12 @@ package it.project.SpringBootProject.Controller;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,28 +20,29 @@ import it.project.SpringBootProject.Service.ReportService;
 
 @RestController
 public class ReportController {
-	 @Autowired ReportService reportservice;
-	 @Autowired MetadataService metadataservice;
+	@Autowired
+	ReportService reportservice;
+	@Autowired
+	MetadataService metadataservice;
 
-	  @GetMapping("/reports/all")
-	  public List<Report> retrieverep()
-	  {
-		  return reportservice.retrieveallreports();
-	  }
+	@RequestMapping(value = "/reports/all", method = RequestMethod.GET)
+	public ResponseEntity<Object> retrieveRep(){
+		return new ResponseEntity<>(reportservice.retrieveallreports(), HttpStatus.OK);
+	}
 
-	  @GetMapping("/metadata")
-	  public List<Metadata> getmetadata()
-	  {
-		  return metadataservice.getMetadata();
-	  }
-	  
-	  @GetMapping("/reports/stats/num")
-	  public List<StatsNum> reportsStats (@RequestParam(name="param", defaultValue="none")String param) {
-		  return reportservice.reportsStatsNum(param);
-	  }
-	  
-	  @GetMapping("/reports/stats/str")
-	  public List<StatsStr> reportStatsStr (@RequestParam(name="param", defaultValue="none")String param) {
-		  return reportservice.reportStatsStr(param);
-	  }
+	@RequestMapping(value = "/reports/metadata", method = RequestMethod.GET)
+	public ResponseEntity<Object> getMetadata(){
+		return new ResponseEntity<>(metadataservice.getMetadata(), HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/reports/stats/num/{param}", method = RequestMethod.GET)
+
+	public ResponseEntity<Object> reportStats(@PathVariable("param") String paramString) {
+		return new ResponseEntity<>(reportservice.reportsStatsNum(paramString), HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/reports/stats/str/{param}", method = RequestMethod.GET)
+	public List<StatsStr> reportStatsStr(@PathVariable("param") String paraString) {
+		return reportservice.reportStatsStr(paraString);
+	}
 }
