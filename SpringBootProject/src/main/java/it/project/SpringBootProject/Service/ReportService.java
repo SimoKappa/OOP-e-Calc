@@ -15,14 +15,18 @@ import com.sun.org.apache.bcel.internal.generic.RETURN;
 
 import au.com.bytecode.opencsv.CSVReader;
 import it.project.SpringBootProject.Model.Report;
-//import it.project.SpringBootProject.Model.Metadata;
 import it.project.SpringBootProject.Model.Stats;
 
 @Service
-public class ReportService {
+public class ReportService implements Filter<Report, Object> {
 
 	private static List<Report> reports = new ArrayList<>();
 	private static List<Stats> stats = new ArrayList<>();
+	private FilterService<Report> filter;
+
+	public ReportService(FilterService<Report> filter) {
+		this.filter = filter;
+	}
 
 	public void init() {
 		String fileString = "csvfile.csv";
@@ -47,6 +51,19 @@ public class ReportService {
 
 	public List<Report> retrieveallreports() {
 		return reports;
+	}
+
+	public List<Report> getReports() {
+		return reports;
+	}
+
+	public List<Report> retrByLogicalFilter(String operator, String field1, String value1, String field2,
+			String value2) {
+		return (ArrayList<Report>) filter.select(this.getReports(), operator, field1, value1, field2, value2);
+	}
+
+	public List<Report> retrByConditionalFilter(String operator, String parametro, String valore) {
+		return (ArrayList<Report>) filter.condSelect(this.getReports(), operator, parametro, valore);
 	}
 
 	private static void createReport(String[] data) {
@@ -78,7 +95,8 @@ public class ReportService {
 			i = 2;
 		else if (param.equals(ncaString))
 			i = 3;
-		else return stats;
+		else
+			return stats;
 		switch (i) {
 		case 1:
 			for (Report report : reports) {
@@ -89,7 +107,7 @@ public class ReportService {
 					min = report.getValue();
 				else if (report.getValue() > max)
 					max = report.getValue();
-				
+
 				n++;
 			}
 			avg = somma / n;
