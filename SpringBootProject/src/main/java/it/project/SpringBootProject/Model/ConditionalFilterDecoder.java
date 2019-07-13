@@ -27,17 +27,21 @@ public class ConditionalFilterDecoder implements Decoder {
 		String parametro = "";
 		String operatore = "";
 		String valore = "";
+		//mappa l'oggetto in un map entry
 		Set<Map.Entry<String, JsonValue>> kvpairs = filter.entrySet();
+		//accedo al valore della chiave
 		for (Map.Entry<String, JsonValue> pair : kvpairs) {
 			parametro = pair.getKey();
 		}
 		try {
+			//accedo all'oggetto JSON che è valore della prima chiave
 			LinkedHashMap<String, String> params = (LinkedHashMap<String, String>) filter.get(parametro);
 			Set<Map.Entry<String, String>> hash = ((HashMap) params).entrySet();
 			for (Entry<String, String> val : hash) {
 				operatore = val.getKey();
 				valore = val.getValue();
 			}
+			//ritorno un array con i valori del filtro condizionale
 			String[] filtri = new String[] { operatore, parametro, valore };
 			return filtri;
 		} catch (ClassCastException e) {

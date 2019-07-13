@@ -9,11 +9,11 @@ public class Report {
 	private int extraction;
 	private int nca;
 	
-	public Report (String countryString, String refPeriodString, String itemString, String codeString, double value, int extraction, int nca) {
-		this.country = countryString;
-		this.refperiod = refPeriodString;
-		this.item = itemString;
-		this.code = codeString;
+	public Report (String country, String refperiod, String item, String code, double value, int extraction, int nca) {
+		this.country = country;
+		this.refperiod = refperiod;
+		this.item = item;
+		this.code = code;
 		this.value = value;
 		this.extraction = extraction;
 		this.nca = nca;
