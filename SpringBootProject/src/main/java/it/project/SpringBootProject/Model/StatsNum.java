@@ -1,15 +1,15 @@
 package it.project.SpringBootProject.Model;
 
-public class Stats {
+public class StatsNum {
 	private String data;
 	private double avg;
 	private double min;
 	private double max;
 	private double dev;
 	private double sum;
-	private double count;
+	private int count;
 	
-	public Stats (String data, double avg, double min, double max, double sum, double count, double dev) {
+	public StatsNum (String data, double avg, double min, double max, double sum, int count, double dev) {
 		this.data = data;
 		this.avg = avg;
 		this.min = min;
@@ -43,7 +43,7 @@ public class Stats {
 		return sum;
 	}
 
-	public double getCount() {
+	public int getCount() {
 		return count;
 	}
 }

@@ -5,7 +5,11 @@ import java.util.List;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,7 +20,8 @@ import it.project.SpringBootProject.Model.ConditionalFilterDecoder;
 import it.project.SpringBootProject.Model.LogicalFilterDecoder;
 import it.project.SpringBootProject.Model.Metadata;
 import it.project.SpringBootProject.Model.Report;
-import it.project.SpringBootProject.Model.Stats;
+import it.project.SpringBootProject.Model.StatsNum;
+import it.project.SpringBootProject.Model.StatsStr;
 import it.project.SpringBootProject.Service.MetadataService;
 import it.project.SpringBootProject.Service.ReportService;
 
@@ -27,21 +32,26 @@ public class ReportController {
 	@Autowired
 	MetadataService metadataservice;
 
-	@GetMapping("/reports/all")
-	public List<Report> retrieverep() {
-		return reportservice.retrieveallreports();
+	@RequestMapping(value = "/reports/all", method = RequestMethod.GET)
+	public ResponseEntity<Object> retrieveRep(){
+		return new ResponseEntity<>(reportservice.retrieveallreports(), HttpStatus.OK);
 	}
 
-	@GetMapping("/metadata")
-	public List<Metadata> getmetadata() {
-		return metadataservice.getMetadata();
+	@RequestMapping(value = "/reports/metadata", method = RequestMethod.GET)
+	public ResponseEntity<Object> getMetadata(){
+		return new ResponseEntity<>(metadataservice.getMetadata(), HttpStatus.OK);
 	}
 
-	@GetMapping("/stats")
-	public List<Stats> reportsStats(@RequestParam(name = "param", defaultValue = "none") String param) {
-		return reportservice.reportsStats(param);
+	@RequestMapping(value = "/reports/stats/num/{param}", method = RequestMethod.GET)
+
+	public ResponseEntity<Object> reportStats(@PathVariable("param") String paramString) {
+		return new ResponseEntity<>(reportservice.reportsStatsNum(paramString), HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/reports/stats/str/{param}", method = RequestMethod.GET)
+	public List<StatsStr> reportStatsStr(@PathVariable("param") String paraString) {
+		return reportservice.reportStatsStr(paraString);
+	}
 	@PostMapping("/reports/filtered")
 	public List<Report> reportsFiltered(@RequestBody JSONObject filter) {
 		LogicalFilterDecoder test = new LogicalFilterDecoder(filter);
@@ -57,5 +67,4 @@ public class ReportController {
 				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, filtroC[0] + " non è un operatore corretto.");
 		}
 	}
-
 }
