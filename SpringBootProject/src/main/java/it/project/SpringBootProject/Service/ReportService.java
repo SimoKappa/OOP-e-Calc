@@ -72,7 +72,7 @@ public class ReportService {
 	}
 
 	public List<StatsNum> reportsStatsNum(String param) {
-		int i = 0, n = 0;
+		int n = 0;
 		double somma = 0, min = 0, max = 0, dev = 0, sumdev = 0, dif = 0;
 		double avg = 0;
 		String valString = new String("value");
