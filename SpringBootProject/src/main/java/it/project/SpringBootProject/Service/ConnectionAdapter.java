@@ -18,7 +18,7 @@ import org.json.simple.JSONValue;
 
 public class ConnectionAdapter {
 	
-	public String result = "Si è verificato un errore";
+	private String result = "Si è verificato un errore";
 	private String url = "";
 	
 	public ConnectionAdapter(String url)

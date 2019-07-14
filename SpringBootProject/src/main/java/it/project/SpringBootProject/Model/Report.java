@@ -2,18 +2,18 @@ package it.project.SpringBootProject.Model;
 
 public class Report {
 	private String country;
-	private String refPeriod;
+	private String refperiod;
 	private String item;
 	private String code;
 	private double value;
 	private int extraction;
 	private int nca;
 	
-	public Report (String countryString, String refPeriodString, String itemString, String codeString, double value, int extraction, int nca) {
-		this.country = countryString;
-		this.refPeriod = refPeriodString;
-		this.item = itemString;
-		this.code = codeString;
+	public Report (String country, String refperiod, String item, String code, double value, int extraction, int nca) {
+		this.country = country;
+		this.refperiod = refperiod;
+		this.item = item;
+		this.code = code;
 		this.value = value;
 		this.extraction = extraction;
 		this.nca = nca;
@@ -22,8 +22,8 @@ public class Report {
 	public String getCountry() {
 		return country;
 	}
-	public String getRefPeriod() {
-		return refPeriod;
+	public String getRefperiod() {
+		return refperiod;
 	}
 	public String getItem() {
 		return item;

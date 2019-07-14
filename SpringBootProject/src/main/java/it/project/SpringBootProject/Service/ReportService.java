@@ -3,32 +3,30 @@ package it.project.SpringBootProject.Service;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-
-import javax.management.loading.PrivateClassLoader;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
-import com.sun.org.apache.bcel.internal.generic.RETURN;
-
 import au.com.bytecode.opencsv.CSVReader;
 import it.project.SpringBootProject.Model.Report;
-//import it.project.SpringBootProject.Model.Metadata;
 import it.project.SpringBootProject.Model.StatsNum;
 import it.project.SpringBootProject.Model.StatsStr;
 
 @Service
-public class ReportService {
+public class ReportService implements Filter<Report, Object> {
 
 	private static List<Report> reports = new ArrayList<>();
+	private FilterService<Report> filter;
 	private static List<StatsNum> statsNum = new ArrayList<>();
 	private static List<StatsStr> statsStr = new ArrayList<>();
 
+
+	public ReportService(FilterService<Report> filter) {
+		this.filter = filter;
+	}
+
+	//legge dal file csv e costruisce gli oggetti report(utilizza JAR esterno)
 	public void init() {
 		String fileString = "csvfile.csv";
 		CSVReader reader = null;
@@ -36,9 +34,12 @@ public class ReportService {
 			reader = new CSVReader(new FileReader(fileString));
 			String[] lineStrings;
 			int i = 0;
+			//legge finchè ci sono dati
 			while ((lineStrings = reader.readNext()) != null) {
+				//sostituisce il carattere specificato con niente
 				lineStrings[2] = lineStrings[2].replaceAll("\uFFFD", "");
 				if (i != 0) {
+					//chiama la funzione che genera gli oggetti report
 					createReport(lineStrings, i, fileString);
 				}
 				i++;
@@ -50,12 +51,26 @@ public class ReportService {
 		}
 	}
 
-	public List<Report> retrieveallreports() {
+	public List<Report> getReports() {
 		return reports;
 	}
 
-	private static void createReport(String[] data, int i, String fileString) {
-		if (data.length == 7) {
+	
+	public List<Report> retrByLogicalFilter(String operator, String field1, String value1, String field2,
+			String value2) {
+		//chiama la funzione select della classe FilterService passando i parametri relativi al filtro corrente
+		return (ArrayList<Report>) filter.select(this.getReports(), operator, field1, value1, field2, value2);
+	}
+
+	public List<Report> retrByConditionalFilter(String operator, String parametro, String valore) {
+		//chiama la funzione selectCond della classe FilterService passando i parametri relativi al filtro corrente(condizionale)
+
+		return (ArrayList<Report>) filter.condSelect(this.getReports(), operator, parametro, valore);
+	}
+
+		private static void createReport(String[] data, int i, String fileString) {
+		//se la lunghezza degli attributi è pari a 7 li recupera
+			if (data.length == 7) {
 			String countryString = data[0];
 			String refPeriodString = data[1];
 			String itemString = data[2];
@@ -63,6 +78,7 @@ public class ReportService {
 			Double valueString = Double.parseDouble(data[4]);
 			int extraction = Integer.parseInt(data[5]);
 			int nca = Integer.parseInt(data[6]);
+			//aggiunge alla List un oggetto di tipo report
 			reports.add(
 					new Report(countryString, refPeriodString, itemString, codeString, valueString, extraction, nca));
 		} else {
@@ -78,9 +94,13 @@ public class ReportService {
 		String valString = new String("value");
 		String extString = new String("extraction");
 		String ncaString = new String("nca");
+		//verifica che esistano i report
 		if (!reports.isEmpty()) {
+			//se il parametro passato corrisponde a value
 			if (param.equals(valString)) {
+				//scorre i report
 				for (Report report : reports) {
+					//calcola le statistiche
 					somma += report.getValue();
 					if (n == 0)
 						max = min = report.getValue();
@@ -89,7 +109,8 @@ public class ReportService {
 					else if (report.getValue() > max)
 						max = report.getValue();
 					n++;
-				}
+				} 
+				//calcola la media
 				avg = somma / n;
 				for (Report report : reports) {
 					dif = report.getValue() - avg;
@@ -139,11 +160,13 @@ public class ReportService {
 					"non sono stati creati gli oggetti richiesti, chiamare la rotta /localhost:8080/");
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, querString);
 		}
+		//calcolata la deviazione standard
 		dev = sumdev / n;
 		dev = Math.sqrt(dev);
 		avg = tronca(avg);
 		somma = tronca(somma);
 		dev = tronca(dev);
+		//aggiunge alla lista gli oggetti relativi alle statistiche 
 		statsNum.add(new StatsNum(param, avg, min, max, somma, n, dev));
 		return statsNum;
 	}
@@ -190,7 +213,7 @@ public class ReportService {
 				for (Report report1 : reports) {
 					count = 0;
 					flag = true;
-					refString = report1.getRefPeriod();
+					refString = report1.getRefperiod();
 					for (StatsStr str : statsStr) {
 						String tempString = str.getRefPeriodString();
 						if (refString.equals(tempString)) {
@@ -201,7 +224,7 @@ public class ReportService {
 					}
 					if (flag == true) {
 						for (Report report2 : reports) {
-							String tempString = report2.getRefPeriod();
+							String tempString = report2.getRefperiod();
 							if (refString.equals(tempString))
 								count++;
 						}
