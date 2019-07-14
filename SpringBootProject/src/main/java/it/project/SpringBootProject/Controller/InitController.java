@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import it.project.SpringBootProject.Service.ConnectionAdapter;
-import it.project.SpringBootProject.Service.ReportService;
+import it.project.SpringBootProject.Service.ReportServiceImpl;
 
 @RestController
 public class InitController {
 	
-	@Autowired ReportService reportservice;
+	@Autowired ReportServiceImpl reportservice;
 	
 	@RequestMapping() 
 	@ResponseBody

@@ -15,14 +15,13 @@ import org.springframework.web.server.ResponseStatusException;
 import it.project.SpringBootProject.Model.ConditionalFilterDecoder;
 import it.project.SpringBootProject.Model.LogicalFilterDecoder;
 import it.project.SpringBootProject.Model.Report;
-import it.project.SpringBootProject.Model.StatsStr;
 import it.project.SpringBootProject.Service.MetadataService;
-import it.project.SpringBootProject.Service.ReportService;
+import it.project.SpringBootProject.Service.ReportServiceImpl;
 
 @RestController
 public class ReportController {
 	@Autowired
-	ReportService reportservice;
+	ReportServiceImpl reportservice;
 	@Autowired
 	MetadataService metadataservice;
 
@@ -45,7 +44,7 @@ public class ReportController {
 
 	// ritorna le statistiche relative alle stringhe
 	@RequestMapping(value = "/reports/stats/str/{param}", method = RequestMethod.GET)
-	public List<StatsStr> reportStatsStr(@PathVariable("param") String paraString) {
+	public List<?> reportStatsStr(@PathVariable("param") String paraString) {
 		return reportservice.reportStatsStr(paraString);
 	}
 
