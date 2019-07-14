@@ -16,8 +16,18 @@ import it.project.SpringBootProject.Model.StatsStrCountry;
 import it.project.SpringBootProject.Model.StatsStrItem;
 import it.project.SpringBootProject.Model.StatsStrPeriod;
 
+/**
+ * Classe che incorpora un {@link Report} e gestisce le varie modalità con cui
+ * questi vengono riportati o le eventuali statistiche sui diversi tipi di
+ * attributo dei record
+ * 
+ * @author danilo
+ *
+ */
 @Service
 public class ReportServiceImpl implements ReportService<Report, Object> {
+
+	// attributi
 
 	private static List<Report> reports = new ArrayList<>();
 	private FilterService<Report> filter;
@@ -31,7 +41,10 @@ public class ReportServiceImpl implements ReportService<Report, Object> {
 		this.filter = filter;
 	}
 
-	// legge dal file csv e costruisce gli oggetti report(utilizza JAR esterno)
+	/**
+	 * legge dal file csv e costruisce gli oggetti report <br>
+	 * <strong>NOTA</strong> - utilizza JAR esterno
+	 */
 	public void init() {
 		if (reports.isEmpty()) {
 			String fileString = "csvfile.csv";
@@ -58,24 +71,43 @@ public class ReportServiceImpl implements ReportService<Report, Object> {
 		}
 	}
 
+	/**
+	 * restituisce tutti i report
+	 * 
+	 * @return i report
+	 */
 	public List<Report> getReports() {
 		return reports;
 	}
 
+	/**
+	 * filtra i report secondo l'utilizzo di filtri logici, chiama la funzione select
+	 * della classe FilterService passando i parametri
+	 * 
+	 * @return report filtrati
+	 */
 	public List<Report> retrByLogicalFilter(String operator, String field1, String value1, String field2,
 			String value2) {
-		// chiama la funzione select della classe FilterService passando i parametri
-		// relativi al filtro corrente
 		return (ArrayList<Report>) filter.select(this.getReports(), operator, field1, value1, field2, value2);
 	}
 
+	/**
+	 * filtra i report secondo l'utilizzo di filtri condizionali, chiama la funzione
+	 * selectCond della classe FilterService passando i parametri
+	 * 
+	 * @return repot filtrati
+	 */
 	public List<Report> retrByConditionalFilter(String operator, String parametro, String valore) {
-		// chiama la funzione selectCond della classe FilterService passando i parametri
-		// relativi al filtro corrente(condizionale)
-
 		return (ArrayList<Report>) filter.condSelect(this.getReports(), operator, parametro, valore);
 	}
 
+	/**
+	 * crea la lista di oggetti report
+	 * 
+	 * @param data       array con i dati letti dal file csv
+	 * @param i          numero della riga che si sta leggendo
+	 * @param fileString nome del file che si sta leggendo
+	 */
 	private static void createReport(String[] data, int i, String fileString) {
 		// se la lunghezza degli attributi è pari a 7 li recupera
 		if (data.length == 7) {
@@ -95,6 +127,15 @@ public class ReportServiceImpl implements ReportService<Report, Object> {
 		}
 	}
 
+	/**
+	 * calcola le statistiche sui parametri numerici quali: <strong>media, valore
+	 * minimo, valore massimo, somma, deviazione standard e conta degli
+	 * elementi</strong>
+	 * 
+	 * @param param parametro che specifica l'attributo su cui calcolare le
+	 *              statistiche
+	 * @return lista con le statistiche numeriche
+	 */
 	public List<StatsNum> reportsStatsNum(String param) {
 		int n = 0;
 		double somma = 0, min = 0, max = 0, dev = 0, sumdev = 0, dif = 0;
@@ -104,6 +145,7 @@ public class ReportServiceImpl implements ReportService<Report, Object> {
 		String ncaString = new String("nca");
 		// verifica che esistano i report
 		if (!reports.isEmpty()) {
+			statsNum.clear();
 			// caso in cui si richiedono le statistiche per l'attributo value
 			if (param.equals(valString)) {
 				// scorre i report
@@ -187,7 +229,12 @@ public class ReportServiceImpl implements ReportService<Report, Object> {
 		return statsNum;
 	}
 
-	// funzione per ridurre il numero di elementi dopo la virgola
+	/**
+	 * riduce il numero di elementi dopo la virgola
+	 * 
+	 * @param a valore da troncare
+	 * @return valore troncato
+	 */
 	private static double tronca(double a) {
 		a *= 10000000;
 		a = Math.floor(a);
@@ -195,7 +242,14 @@ public class ReportServiceImpl implements ReportService<Report, Object> {
 		return a;
 	}
 
-	// statistiche relative agli attributi di tipo stringa
+	/**
+	 * conta le occorrenze per ogni elemento di tipo stringa, costruendo una lista
+	 * con gli oggetti che contengono relativo elemento e conteggio
+	 * 
+	 * @param param parametro che specifica l'attributo su cui calcolare le
+	 *              occorrenze
+	 * @return lsita dei relativi oggetti
+	 */
 	public List<?> reportStatsStr(String param) {
 		String refString;
 		int count = 0;
@@ -320,6 +374,5 @@ public class ReportServiceImpl implements ReportService<Report, Object> {
 					"il dataset non è stato ancora importato, chiamare la rotta /localhost:8080/");
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, querString);
 		}
-		// return statsStr;
 	}
 }

@@ -18,6 +18,13 @@ import it.project.SpringBootProject.Model.Report;
 import it.project.SpringBootProject.Service.MetadataService;
 import it.project.SpringBootProject.Service.ReportServiceImpl;
 
+/**
+ * controller che dirige le richieste a seconda delle rotte e dei verbi
+ * utilizzati
+ * 
+ * @author danilo
+ *
+ */
 @RestController
 public class ReportController {
 	@Autowired
@@ -25,30 +32,54 @@ public class ReportController {
 	@Autowired
 	MetadataService metadataservice;
 
+	/**
+	 * restituisce tutti gli oggetti del dataset
+	 * 
+	 * @return tutto il dataset
+	 */
 	@RequestMapping(value = "/reports/all", method = RequestMethod.GET)
 	public ResponseEntity<Object> retrieveRep() {
 		return new ResponseEntity<>(reportservice.getReports(), HttpStatus.OK);
 	}
 
-	// ritorna i metadati relativi agli attributi
+	/**
+	 * restituisce i metadati relativi agli attributi
+	 * 
+	 * @return metadati
+	 */
 	@RequestMapping(value = "/reports/metadata", method = RequestMethod.GET)
 	public ResponseEntity<Object> getMetadata() {
 		return new ResponseEntity<>(metadataservice.getMetadata(), HttpStatus.OK);
 	}
 
-	// ritorna le statistiche relative ai dati numerici
+	/**
+	 * restituisce le statistiche relative ai dati numerici
+	 * 
+	 * @param paramString attributo su cui sono richieste le statistiche
+	 * @return statistiche numeriche
+	 */
 	@RequestMapping(value = "/reports/stats/num/{param}", method = RequestMethod.GET)
 	public ResponseEntity<Object> reportStats(@PathVariable("param") String paramString) {
 		return new ResponseEntity<>(reportservice.reportsStatsNum(paramString), HttpStatus.OK);
 	}
 
-	// ritorna le statistiche relative alle stringhe
+	/**
+	 * restituisce le statistiche relative agli attributi di tipo stringa
+	 * 
+	 * @param paraString attributo su cui si vogliono contare le occorrenze
+	 * @return occorrenze dei singoli elementi
+	 */
 	@RequestMapping(value = "/reports/stats/str/{param}", method = RequestMethod.GET)
 	public List<?> reportStatsStr(@PathVariable("param") String paraString) {
 		return reportservice.reportStatsStr(paraString);
 	}
 
-	// filtri sui report
+	/**
+	 * restituisce il dataset dopo l'applicazione dei filti
+	 * 
+	 * @param filter filtro specificato in formato JSON nel body della richiesta
+	 * @return dataset filtrato
+	 */
 	@PostMapping("/reports/filtered")
 	public List<Report> reportsFiltered(@RequestBody JSONObject filter) {
 		LogicalFilterDecoder test = new LogicalFilterDecoder(filter);
