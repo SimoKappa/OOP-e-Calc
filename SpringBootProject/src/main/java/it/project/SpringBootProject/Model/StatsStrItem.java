@@ -3,7 +3,7 @@ package it.project.SpringBootProject.Model;
 /**
  * statistiche relative agli elementi dell'attributo item
  * 
- * @author danilo
+ * @author Danilo Tomassini e Simone Cappella
  *
  */
 public class StatsStrItem {

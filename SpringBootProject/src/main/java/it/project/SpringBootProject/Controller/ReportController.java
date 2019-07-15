@@ -22,7 +22,7 @@ import it.project.SpringBootProject.Service.ReportServiceImpl;
  * controller che dirige le richieste a seconda delle rotte e dei verbi
  * utilizzati
  * 
- * @author danilo
+ * @author Danilo Tomassini e Simone Cappella
  *
  */
 @RestController

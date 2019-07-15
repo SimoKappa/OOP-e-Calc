@@ -12,7 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 /**
  * classe che implementa metodi utilizzati per applicare i filtri
  * 
- * @author danilo
+ * @author Danilo Tomassini e Simone Cappella
  *
  * @param <T>
  */

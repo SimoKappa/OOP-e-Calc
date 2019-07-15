@@ -10,7 +10,7 @@ import it.project.SpringBootProject.Model.StatsNum;
 /**
  * interfaccia implementata da {@link ReportServiceImpl}
  * 
- * @author danilo
+ * @author Danilo Tomassini e Simone Cappella
  *
  */
 public interface ReportService<E, T> {

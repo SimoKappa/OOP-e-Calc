@@ -4,7 +4,7 @@ package it.project.SpringBootProject.Model;
  * Classe che permette di accogliere i dati dal dataset e creare i relativi
  * oggetti
  * 
- * @author danilo
+ * @author Danilo Tomassini e Simone Cappella
  *
  */
 public class Report {

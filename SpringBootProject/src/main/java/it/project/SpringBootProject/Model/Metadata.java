@@ -3,7 +3,7 @@ package it.project.SpringBootProject.Model;
 /**
  * metadati degli attributi del dataset
  * 
- * @author danilo
+ * @author Danilo Tomassini e Simone Cappella
  *
  */
 public class Metadata {

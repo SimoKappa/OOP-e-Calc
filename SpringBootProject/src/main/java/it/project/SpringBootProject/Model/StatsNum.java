@@ -5,7 +5,7 @@ package it.project.SpringBootProject.Model;
  * elementi) sugli attributi del {@link Report} di tipo numerico quali:<br>
  * <strong> value, extraction, nca</strong>
  * 
- * @author danilo
+ * @author Danilo Tomassini e Simone Cappella
  *
  */
 public class StatsNum {

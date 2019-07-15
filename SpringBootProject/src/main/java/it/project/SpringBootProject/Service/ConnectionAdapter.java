@@ -20,7 +20,7 @@ import org.json.simple.JSONValue;
  * permette di controllare se il file è presente o meno e scaricarlo qualora non
  * ci fosse
  * 
- * @author danilo
+ * @author Danilo Tomassini e Simone Cappella
  *
  */
 public class ConnectionAdapter {

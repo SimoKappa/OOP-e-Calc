@@ -21,7 +21,7 @@ import it.project.SpringBootProject.Model.StatsStrPeriod;
  * questi vengono riportati o le eventuali statistiche sui diversi tipi di
  * attributo dei record
  * 
- * @author danilo
+ * @author Danilo Tomassini e Simone Cappella
  *
  */
 @Service

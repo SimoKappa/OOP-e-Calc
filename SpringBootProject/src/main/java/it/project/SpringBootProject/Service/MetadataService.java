@@ -15,7 +15,7 @@ import it.project.SpringBootProject.Model.Metadata;
  * serve per ottenere i metadati, quindi l'elenco degli attributi e relativo
  * tipo
  * 
- * @author danilo
+ * @author Danilo Tomassini e Simone Cappella
  *
  */
 @Service

@@ -3,7 +3,7 @@ package it.project.SpringBootProject.Model;
 /**
  * statistiche relative agli elementi dell'attributo code
  * 
- * @author danilo
+ * @author Danilo Tomassini e Simone Cappella
  *
  */
 public class StatsStrCode {

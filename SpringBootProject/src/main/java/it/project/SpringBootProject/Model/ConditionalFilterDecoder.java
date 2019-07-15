@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 /**
  * elabora il filtro passato nel body della richiesta
  * 
- * @author danilo
+ * @author Danilo Tomassini e Simone Cappella
  *
  */
 public class ConditionalFilterDecoder implements Decoder {
