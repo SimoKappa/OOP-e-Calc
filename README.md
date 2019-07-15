@@ -10,6 +10,7 @@ In questo modo, vengono differenziati gli accessi alle statistiche numeriche o p
 A seconda della rotta e del parametro passato, dunque, vengono attivati diversi metodi che si occupano di costruire una lista con oggetti di tipo StatsNum (nel caso in cui la richiesta specifichi attributi di tipo numerico) e StatsStr + "Attributo" (nel caso in cui la richiesta specifichi attributi di tipo Stringa).
 La lista viene dunque restituita al controller e resa disponibile all'utente.<br/>
 ![creazione oggetto statistiche numeri](https://user-images.githubusercontent.com/49287565/61211350-ab296980-a6ff-11e9-9ca4-f897fce7c8cf.png)<br/>
+Per le stringhe, invece.<br/>
 ![creazione oggetti statistiche Stringa](https://user-images.githubusercontent.com/49287565/61211436-dc099e80-a6ff-11e9-817f-1ddd6f1f78a4.png)<br/>
 
 
