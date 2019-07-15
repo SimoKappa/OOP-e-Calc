@@ -29,21 +29,21 @@ spiegare come sono stati implementati i filtri
 ![reportsFiltered SD](https://user-images.githubusercontent.com/48387175/61182796-aa79d000-a638-11e9-8bbf-c354e4172966.jpg)<br/>
 
 # Test
-- **Download del file e importazione del dataset:** alla chiamata della rotta **localhost:8080/** viene avviato il processo che controlla se il file **csvfile.csv** Ë presente nella cartella del progetto.
+- **Download del file e importazione del dataset:** alla chiamata della rotta **localhost:8080/** viene avviato il processo che controlla se il file **csvfile.csv** √® presente nella cartella del progetto.
 Nel caso questo non sia presente viene scaricato e viene importato il dataset.
-Nel caso il file fosse gi‡ presente si procede con la creazione del dataset.
+Nel caso il file fosse gi√† presente si procede con la creazione del dataset.<br/>
 **NOTA:** vengono gestiti casi in cui nel file ci siano dati in forma errata.
 ![Download file ed importazione dataset](https://user-images.githubusercontent.com/49287565/61208116-f3905980-a6f6-11e9-9563-c24e9a2c7ea3.png)
-<br>
+<br/>
 - **Restituzione dei dati:** i dati vengono restituiti con la chiamata tramite metodo GET alla rotta **reports/all** .
 ![visualizza tutti i dati](https://user-images.githubusercontent.com/49287565/61208576-06575e00-a6f8-11e9-9786-e44cd02553ed.png)
-<br>
+<br/>
 - **Estrazione delle statistiche:** possono essere estratte statistiche sui dati presenti, queste differiscono dal tipo di attributi che i dati presentano.
-> Sugli attributi di tipo **numerico**, tramite la rotta **reports/stats/num/(value, nca, extraction)**, Ë possibile ricavare:
+> Sugli attributi di tipo **numerico**, tramite la rotta **reports/stats/num/(value, nca, extraction)**, √® possibile ricavare:
 valore medio, valore minimo, valore massimo, deviazione standard, somma di tutti i valori, e numero degli elementi; rispettivamente per gli attributi value, nca o extraction, specificati nella rotta.
 ![statistiche numeriche](https://user-images.githubusercontent.com/49287565/61208756-68b05e80-a6f8-11e9-857b-bfa8a1409be2.png)
 <br>
-Sugli attributi di tipo **Stringa**, tramite la rotta **reports/stats/str/(country, period, item, code)**, Ë possibile ricavare la conta delle occorrenze per ogni elemento unico presente nel dataset relativo all'attributo specificato nella rotta.
+Sugli attributi di tipo **Stringa**, tramite la rotta **reports/stats/str/(country, period, item, code)**, √® possibile ricavare la conta delle occorrenze per ogni elemento unico presente nel dataset relativo all'attributo specificato nella rotta.
 ![statistiche sulle stringhe](https://user-images.githubusercontent.com/49287565/61208953-d197d680-a6f8-11e9-850e-f08a9af8000d.png)
 <br>
 - **Estrazione metadati:** possono essere estratti i metadati tramite la chiamata alla rotta **reports/metadata**. Nell'immagine sono riportati alcuni degli attributi con relativa descrizione e tipo di dato.
@@ -53,6 +53,6 @@ Sugli attributi di tipo **Stringa**, tramite la rotta **reports/stats/str/(count
 > I filtri logici previsti sono **\$and** (estrae dati che soddisfano le specifiche di uno dei due parametri) o **\$or** (estrae dati che soddisfano le specifiche di entrambi i parametri) utilizzato nella foto.
 ![filtri logici](https://user-images.githubusercontent.com/49287565/61210136-d8741880-a6fb-11e9-8b8e-1368fe1db733.png)
 <br>
-I filtri condizionali sono **\$lt** (vengono estratti i dati il cui attributo specificato Ë minore del valore indicato) o **\$gt** (vengono estratti i dati il cui attributo specificato Ë minore del valore indicato).
+I filtri condizionali sono **\$lt** (vengono estratti i dati il cui attributo specificato √® minore del valore indicato) o **\$gt** (vengono estratti i dati il cui attributo specificato √® minore del valore indicato).
 ![filtro condizionale](https://user-images.githubusercontent.com/49287565/61210676-86cc8d80-a6fd-11e9-9461-e9101103799b.png)
 **NOTA:** vengono gestiti i casi di sintassi del filtro errata o attributo errato.
