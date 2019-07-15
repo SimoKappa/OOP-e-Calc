@@ -33,20 +33,20 @@ spiegare come sono stati implementati i filtri
 Nel caso questo non sia presente viene scaricato e viene importato il dataset.
 Nel caso il file fosse già presente si procede con la creazione del dataset.<br/>
 **NOTA:** vengono gestiti casi in cui nel file ci siano dati in forma errata.
-![DownloadEImportazione](https://user-images.githubusercontent.com/49287565/61208116-f3905980-a6f6-11e9-9563-c24e9a2c7ea3.png) <br/><br/><br/>
+![DownloadEImportazione](https://user-images.githubusercontent.com/49287565/61208116-f3905980-a6f6-11e9-9563-c24e9a2c7ea3.png) <br/>
 - **Restituzione dei dati:** i dati vengono restituiti con la chiamata tramite metodo GET alla rotta **reports/all** .<br/>
-![visualizzaDati](https://user-images.githubusercontent.com/49287565/61208576-06575e00-a6f8-11e9-9786-e44cd02553ed.png)
+![visualizzaDati](https://user-images.githubusercontent.com/49287565/61208576-06575e00-a6f8-11e9-9786-e44cd02553ed.png)<br/>
 - **Estrazione delle statistiche:** possono essere estratte statistiche sui dati presenti, queste differiscono dal tipo di attributi che i dati presentano.
 > Sugli attributi di tipo **numerico**, tramite la rotta **reports/stats/num/(value, nca, extraction)**, è possibile ricavare:
-valore medio, valore minimo, valore massimo, deviazione standard, somma di tutti i valori, e numero degli elementi; rispettivamente per gli attributi value, nca o extraction, specificati nella rotta.
-![statistiche numeriche](https://user-images.githubusercontent.com/49287565/61208756-68b05e80-a6f8-11e9-857b-bfa8a1409be2.png)
-Sugli attributi di tipo **Stringa**, tramite la rotta **reports/stats/str/(country, period, item, code)**, è possibile ricavare la conta delle occorrenze per ogni elemento unico presente nel dataset relativo all'attributo specificato nella rotta.
-![statistiche sulle stringhe](https://user-images.githubusercontent.com/49287565/61208953-d197d680-a6f8-11e9-850e-f08a9af8000d.png)
-- **Estrazione metadati:** possono essere estratti i metadati tramite la chiamata alla rotta **reports/metadata**. Nell'immagine sono riportati alcuni degli attributi con relativa descrizione e tipo di dato.
-![metadata](https://user-images.githubusercontent.com/49287565/61209677-b1691700-a6fa-11e9-86da-00b0d4b5a675.png)
+valore medio, valore minimo, valore massimo, deviazione standard, somma di tutti i valori, e numero degli elementi; rispettivamente per gli attributi value, nca o extraction, specificati nella rotta.<br/>
+![statistiche numeriche](https://user-images.githubusercontent.com/49287565/61208756-68b05e80-a6f8-11e9-857b-bfa8a1409be2.png)<br/>
+Sugli attributi di tipo **Stringa**, tramite la rotta **reports/stats/str/(country, period, item, code)**, è possibile ricavare la conta delle occorrenze per ogni elemento unico presente nel dataset relativo all'attributo specificato nella rotta.<br/>
+![statistiche sulle stringhe](https://user-images.githubusercontent.com/49287565/61208953-d197d680-a6f8-11e9-850e-f08a9af8000d.png)<br/>
+- **Estrazione metadati:** possono essere estratti i metadati tramite la chiamata alla rotta **reports/metadata**. Nell'immagine sono riportati alcuni degli attributi con relativa descrizione e tipo di dato.<br/>
+![metadata](https://user-images.githubusercontent.com/49287565/61209677-b1691700-a6fa-11e9-86da-00b0d4b5a675.png)<br/>
 - **Estrazione dei dati filtrati:** i dati possono essere filtrati utilizzando la rotta **reports/filtered** con il metodo **POST** specificando il filtro con la sintassi **JSON**.  Questi possono essere di tipo **logico** o **condizionale**.
-> I filtri logici previsti sono **\$and** (estrae dati che soddisfano le specifiche di uno dei due parametri) o **\$or** (estrae dati che soddisfano le specifiche di entrambi i parametri) utilizzato nella foto.
-![filtri logici](https://user-images.githubusercontent.com/49287565/61210136-d8741880-a6fb-11e9-8b8e-1368fe1db733.png)
-I filtri condizionali sono **\$lt** (vengono estratti i dati il cui attributo specificato è minore del valore indicato) o **\$gt** (vengono estratti i dati il cui attributo specificato è minore del valore indicato).
-![filtro condizionale](https://user-images.githubusercontent.com/49287565/61210676-86cc8d80-a6fd-11e9-9461-e9101103799b.png)
+> I filtri logici previsti sono **\$and** (estrae dati che soddisfano le specifiche di uno dei due parametri) o **\$or** (estrae dati che soddisfano le specifiche di entrambi i parametri) utilizzato nella foto.<br/>
+![filtri logici](https://user-images.githubusercontent.com/49287565/61210136-d8741880-a6fb-11e9-8b8e-1368fe1db733.png)<br/>
+I filtri condizionali sono **\$lt** (vengono estratti i dati il cui attributo specificato è minore del valore indicato) o **\$gt** (vengono estratti i dati il cui attributo specificato è minore del valore indicato).<br/>
+![filtro condizionale](https://user-images.githubusercontent.com/49287565/61210676-86cc8d80-a6fd-11e9-9461-e9101103799b.png)<br/>
 **NOTA:** vengono gestiti i casi di sintassi del filtro errata o attributo errato.
