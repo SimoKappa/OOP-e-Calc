@@ -35,7 +35,7 @@ Nel caso il file fosse già presente si procede con la creazione del dataset.<br
 **NOTA:** vengono gestiti casi in cui nel file ci siano dati in forma errata.
 ![Download file ed importazione dataset](https://user-images.githubusercontent.com/49287565/61208116-f3905980-a6f6-11e9-9563-c24e9a2c7ea3.png)
 <br/>
-- **Restituzione dei dati:** i dati vengono restituiti con la chiamata tramite metodo GET alla rotta **reports/all** .
+- **Restituzione dei dati:** i dati vengono restituiti con la chiamata tramite metodo GET alla rotta **reports/all** .<br/>
 ![visualizza tutti i dati](https://user-images.githubusercontent.com/49287565/61208576-06575e00-a6f8-11e9-9786-e44cd02553ed.png)
 <br/>
 - **Estrazione delle statistiche:** possono essere estratte statistiche sui dati presenti, queste differiscono dal tipo di attributi che i dati presentano.
