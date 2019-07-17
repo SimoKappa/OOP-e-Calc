@@ -1,6 +1,9 @@
 package it.project.SpringBootProject.Service;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.concurrent.ArrayBlockingQueue;
 
 public class NativeStats { //classe per implementare il metodo nativo
 
@@ -20,7 +23,10 @@ public class NativeStats { //classe per implementare il metodo nativo
 
 	// metodi
 	public void chiamata(int i) {
-		int[] buf = this.nativeInt(valoriInt, i);//mette in un array i calcoli fatti (to be continued...)
+		nativeInt(valoriInt, i);//mette in un array i calcoli fatti (to be continued...)
+		for (int j = 0; j<5; j++) {
+		//System.out.println(buf[j]);
+		}
 	}
 
 	public int getCount() {

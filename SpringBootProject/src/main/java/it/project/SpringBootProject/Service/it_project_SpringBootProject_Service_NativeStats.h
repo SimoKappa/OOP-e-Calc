@@ -10,10 +10,10 @@ extern "C" {
 /*
  * Class:     it_project_SpringBootProject_Service_NativeStats
  * Method:    nativeInt
- * Signature: ()V
+ * Signature: ([II)[I
  */
-JNIEXPORT void JNICALL Java_it_project_SpringBootProject_Service_NativeStats_nativeInt
-  (JNIEnv *, jobject);
+JNIEXPORT jintArray JNICALL Java_it_project_SpringBootProject_Service_NativeStats_nativeInt
+  (JNIEnv *, jobject, jintArray, jint);
 
 #ifdef __cplusplus
 }
