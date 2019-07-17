@@ -98,4 +98,9 @@ public class ReportController {
 				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, filtroC[0] + " non è un operatore corretto.");
 		}
 	}
+	
+	@RequestMapping(value = "/reports/stats/num/nat/jni", method = RequestMethod.GET)
+	public ResponseEntity<Object> reportStatsJni() {
+		return new ResponseEntity<>(reportservice.reportStatsJni(), HttpStatus.OK);
+	}
 }

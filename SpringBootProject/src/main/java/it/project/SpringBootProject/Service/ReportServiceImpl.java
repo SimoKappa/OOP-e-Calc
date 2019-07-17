@@ -27,7 +27,7 @@ import it.project.SpringBootProject.Model.StatsStrPeriod;
 @Service
 public class ReportServiceImpl implements ReportService<Report, Object> {
 
-	// attributi
+	public native void nativeStats();
 
 	private static List<Report> reports = new ArrayList<>();
 	private FilterService<Report> filter;
@@ -36,9 +36,14 @@ public class ReportServiceImpl implements ReportService<Report, Object> {
 	private static List<StatsStrPeriod> statsStrPeriod = new ArrayList<>();
 	private static List<StatsStrItem> statsStrItem = new ArrayList<>();
 	private static List<StatsStrCode> statsStrCode = new ArrayList<>();
+	private int i = 0;
 
 	public ReportServiceImpl(FilterService<Report> filter) {
 		this.filter = filter;
+	}
+
+	public ReportServiceImpl() {
+
 	}
 
 	/**
@@ -52,7 +57,6 @@ public class ReportServiceImpl implements ReportService<Report, Object> {
 			try {
 				reader = new CSVReader(new FileReader(fileString));
 				String[] lineStrings;
-				int i = 0;
 				// legge finchè ci sono dati
 				while ((lineStrings = reader.readNext()) != null) {
 					// elimina il carattere specificato
@@ -80,9 +84,13 @@ public class ReportServiceImpl implements ReportService<Report, Object> {
 		return reports;
 	}
 
+	public int getCount() {
+		return i;
+	}
+
 	/**
-	 * filtra i report secondo l'utilizzo di filtri logici, chiama la funzione select
-	 * della classe FilterService passando i parametri
+	 * filtra i report secondo l'utilizzo di filtri logici, chiama la funzione
+	 * select della classe FilterService passando i parametri
 	 * 
 	 * @return report filtrati
 	 */
@@ -375,4 +383,24 @@ public class ReportServiceImpl implements ReportService<Report, Object> {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, querString);
 		}
 	}
+
+	public List<?> reportStatsJni() {
+		int valori[] = new int[i];
+		int j = 0;
+		for (Report report : reports) {
+			valori[j] = report.getNca(); //crea l'array con i valori da passare al costruttore (valori che riguardano solo il parametro nca per ora)
+			//System.out.println(valori[i]);
+			j++;
+		}
+
+		NativeStats nativeStats = new NativeStats(valori, j); //crea l'oggetto della classe
+		nativeStats.chiamata(j); //chiama la funzione che chiamerà il metodo nativo
+		
+		return null;
+	}
+
+	/*
+	 * static { System.loadLibrary("NativeStats"); }
+	 */
+
 }
