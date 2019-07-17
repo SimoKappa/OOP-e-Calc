@@ -1,40 +1,31 @@
 package it.project.SpringBootProject.Service;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.concurrent.ArrayBlockingQueue;
-
 public class NativeStats { //classe per implementare il metodo nativo
 
-	// attriuti e inizializzazioni
-	private int valoriInt[];
-
+	private double valori[];
 	private int count;
+	private double avg, min, max, dev, sum;
+	double[] dat = {0, 0, 0, 0, 0};
+	
+	public native void nativeInt(double[] valori, int i, double[] dat); // prototipo metodo nativo
 
-	public native int[] nativeInt(int[] valori, int i); // prototipo metodo nativo
-	// (NativeStats ob = new NativeStats();
-
-	public NativeStats(int valoriInt[], int count) {
-		this.valoriInt = valoriInt;
+	public NativeStats(double valoriInt[], int count) {
+		this.valori = valoriInt;
 		this.count = count;
 
 	}
 
-	// metodi
-	public void chiamata(int i) {
-		nativeInt(valoriInt, i);//mette in un array i calcoli fatti (to be continued...)
-		for (int j = 0; j<5; j++) {
-		//System.out.println(buf[j]);
-		}
+	public double[] statsDouble(int i) {
+		nativeInt(valori, i, dat);//mette in un array i calcoli fatti (to be continued...)
+		return dat;
 	}
-
+	
 	public int getCount() {
 		return count;
 	}
 
-	public int[] getValoriInt() {
-		return valoriInt;
+	public double[] getValoriInt() {
+		return valori;
 	}
 
 	static {

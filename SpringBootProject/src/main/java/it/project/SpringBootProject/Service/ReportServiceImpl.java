@@ -384,23 +384,45 @@ public class ReportServiceImpl implements ReportService<Report, Object> {
 		}
 	}
 
-	public List<?> reportStatsJni() {
-		int valori[] = new int[i];
+	public List<?> reportStatsJni(String param) {
+		double valori[] = new double[i];
+		double stats[] = new double[5];
 		int j = 0;
-		for (Report report : reports) {
-			valori[j] = report.getNca(); //crea l'array con i valori da passare al costruttore (valori che riguardano solo il parametro nca per ora)
-			//System.out.println(valori[i]);
-			j++;
+		String valString = new String("value");
+		String extString = new String("extraction");
+		String ncaString = new String("nca");
+		if (!reports.isEmpty()) {
+			statsNum.clear();
+
+			if (param.equals(valString)) {
+				for (Report report : reports) {
+					valori[j] = report.getValue();
+					j++;
+				}
+			} else if (param.equals(extString)) {
+				for (Report report : reports) {
+					valori[j] = report.getExtraction();
+					j++;
+				}
+			} else if (param.equals(ncaString)) {
+				for (Report report : reports) {
+					valori[j] = report.getNca();
+					j++;
+				}
+			} else {
+				String querString = new String(param + " non è un parametro valido...");
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, querString);
+			}
+			// gestione del caso in cui il dataset non sia stato ancora importato
+		} else {
+			String querString = new String(
+					"il dataset non è stato ancora importato, chiamare la rotta /localhost:8080/");
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, querString);
 		}
-
-		NativeStats nativeStats = new NativeStats(valori, j); //crea l'oggetto della classe
-		nativeStats.chiamata(j); //chiama la funzione che chiamerà il metodo nativo
-		
-		return null;
+		NativeStats nativeStats = new NativeStats(valori, j); // crea l'oggetto della classe
+		stats = nativeStats.statsDouble(j); // chiama la funzione che chiamerà il metodo nativo
+		statsNum.add(new StatsNum(param + " estratto con jni", stats[0], stats[1], stats[2], stats[4], j, stats[3]));
+		return statsNum;
 	}
-
-	/*
-	 * static { System.loadLibrary("NativeStats"); }
-	 */
 
 }
