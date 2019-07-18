@@ -1,5 +1,6 @@
 package it.project.SpringBootProject.Service;
 
+import java.awt.SystemColor;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -244,7 +245,7 @@ public class ReportServiceImpl implements ReportService<Report, Object> {
 	 * @param a valore da troncare
 	 * @return valore troncato
 	 */
-	private static double tronca(double a) {
+	private double tronca(double a) {
 		a *= 10000000;
 		a = Math.floor(a);
 		a /= 10000000;
@@ -385,7 +386,7 @@ public class ReportServiceImpl implements ReportService<Report, Object> {
 		}
 	}
 
-	public List<?> reportStatsJni(String param) {
+	public List<?> reportStatsNumJni(String param) {
 		double valori[] = new double[i];
 		double stats[] = new double[5];
 		int j = 0;
@@ -428,6 +429,8 @@ public class ReportServiceImpl implements ReportService<Report, Object> {
 	
 	public List<?> reportStatsStrJni(String param){
 		String parole[] = new String[i];
+		ArrayList<String> contate;
+		ArrayList<Integer> occorrenze;
 		int j = 0;
 		try
 		{
@@ -448,6 +451,11 @@ public class ReportServiceImpl implements ReportService<Report, Object> {
 		} 
 		NativeStats ns = new NativeStats();
 		ns.nativeString(parole, j);
+		int i = 0;
+		for (String paroleArrayList : parole) {
+			System.out.println(parole[i]);
+			i++;
+		}
 		return null;
 	}
 

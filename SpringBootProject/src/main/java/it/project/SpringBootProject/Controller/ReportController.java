@@ -99,9 +99,9 @@ public class ReportController {
 		}
 	}
 	
-	@RequestMapping(value = "/reports/stats/num/nat/jni/{param}", method = RequestMethod.GET)
+	@RequestMapping(value = "/reports/stats/num/{param}/jni", method = RequestMethod.GET)
 	public ResponseEntity<Object> reportStatsJni(@PathVariable("param") String param) {
-		return new ResponseEntity<>(reportservice.reportStatsJni(param), HttpStatus.OK);
+		return new ResponseEntity<>(reportservice.reportStatsNumJni(param), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value ="/reports/stats/str/{param}/jni" , method = RequestMethod.GET)

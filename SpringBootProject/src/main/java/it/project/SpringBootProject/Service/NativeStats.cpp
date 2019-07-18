@@ -41,7 +41,6 @@ JNIEXPORT void JNICALL Java_it_project_SpringBootProject_Service_NativeStats_nat
 
 JNIEXPORT void JNICALL Java_it_project_SpringBootProject_Service_NativeStats_nativeString(JNIEnv * env, jobject obj, jobjectArray array, jint i)
 {
-	
 	string words[i];
 	for (int k = 0; k < i; k++)
 	{
@@ -87,7 +86,12 @@ JNIEXPORT void JNICALL Java_it_project_SpringBootProject_Service_NativeStats_nat
 			}
 		}
 	}
-	cout << occ.at(3)<<endl << app.at(3) << endl;
+
+	for (int i = 0; i < app.size(); i++) {
+		cout << occ.at(i) << endl << app.at(i) << endl;
+	}
+
 	
+
 	
 }

@@ -1,5 +1,8 @@
 package it.project.SpringBootProject.Service;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class NativeStats { //classe per implementare il metodo nativo
 
 	private double valori[];
