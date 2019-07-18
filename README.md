@@ -29,6 +29,9 @@ spiegare come sono stati implementati i filtri
 ![reportStatsStr](https://user-images.githubusercontent.com/48387175/61182794-a2ba2b80-a638-11e9-8b99-7b5070cf4eaf.png)<br/>
 ![reportsFiltered SD](https://user-images.githubusercontent.com/48387175/61182796-aa79d000-a638-11e9-8bbf-c354e4172966.jpg)<br/>
 
+**Class Diagram**
+![DiagrammaClassi ](https://user-images.githubusercontent.com/49287565/61478293-851af800-a991-11e9-8857-bb952809deb2.jpg)<br/>
+
 # Test
 - **Download del file e importazione del dataset:** alla chiamata della rotta **localhost:8080/** viene avviato il processo che controlla se il file **csvfile.csv** è presente nella cartella del progetto.
 Nel caso questo non sia presente viene scaricato e viene importato il dataset.

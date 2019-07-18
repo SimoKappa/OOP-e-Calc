@@ -103,4 +103,9 @@ public class ReportController {
 	public ResponseEntity<Object> reportStatsJni(@PathVariable("param") String param) {
 		return new ResponseEntity<>(reportservice.reportStatsJni(param), HttpStatus.OK);
 	}
+	
+	@RequestMapping(value ="/reports/stats/str/{param}/jni" , method = RequestMethod.GET)
+	public ResponseEntity<Object> reportStatsStrJni(@PathVariable("param") String param){
+		return new ResponseEntity<>(reportservice.reportStatsStrJni(param), HttpStatus.OK);
+	}
 }
