@@ -1,24 +1,17 @@
 #include <jni.h>
 #include "it_project_SpringBootProject_Service_NativeStats.h"
 #include <stdio.h>
+#include <string.h>
 #include <iostream>
 #include <math.h>
+#include <vector>
 
 using namespace std;
 
 JNIEXPORT void JNICALL Java_it_project_SpringBootProject_Service_NativeStats_nativeInt(JNIEnv *env, jobject obj, jdoubleArray valori, jint j, jdoubleArray dat) {
-	//jclass cls;
-	//jfieldID fid;
-
-	//cout << "Avviamento metodo per le statistiche native.\n";
-
-	//const jsize = i;
 	jint avg = 0, min = 1, max = 2, dev = 3, sum = 4;
-	jsize len = env->GetArrayLength(dat);
 	jdouble *stats = env->GetDoubleArrayElements(dat, NULL);
-	//jintArray statsArray = env->NewIntArray(5);// 0 = avg; 1 = min; 2 = max; 3 = dev; 4 = somma;
 	jdouble *val = env->GetDoubleArrayElements(valori, NULL);
-	//jint *stats = env->GetIntArrayElements(statsArray, NULL);
 	jdouble temp = 0, somma = 0, dif = 0, sommadev = 0;
 
 	for (int i = 0; i < j; i++) {
@@ -43,16 +36,58 @@ JNIEXPORT void JNICALL Java_it_project_SpringBootProject_Service_NativeStats_nat
 	
 	sommadev /= j;
 	stats[dev] = sqrt(sommadev);
-
-	/*for (int i = 0; i < 5; i++) {
-		cout << stats[i] << endl;
-	}*/
-
-	//env->ReleaseIntArrayElements(valori, val, NULL);
-	//env->ReleaseIntArrayElements(statsArray, nval, NULL);
-
 	env->ReleaseDoubleArrayElements(dat, stats, JNI_COMMIT);
+}
 
-	/*cls = env->GetObjectClass(obj);
-	fid = env->GetFieldId(cls, valoriInt[]);*/
+JNIEXPORT void JNICALL Java_it_project_SpringBootProject_Service_NativeStats_nativeString(JNIEnv * env, jobject obj, jobjectArray array, jint i)
+{
+	
+	string words[i];
+	for (int k = 0; k < i; k++)
+	{
+		jobject row = env->GetObjectArrayElement(array, k);
+		const char* cvalue = env->GetStringUTFChars((jstring)row, JNI_FALSE);
+		words[k] = cvalue;
+	}
+	int a = 0;
+	vector<string> app;
+	vector<int> occ;
+	bool flag;
+	
+	for (int k = 0; k < i; k++)
+	{
+		if (k == 0)
+		{
+			app.push_back(words[k]);
+			occ.push_back(1);
+			a++;
+		}
+		else
+		{
+			for (int l = 0; l < app.size(); l++)
+			{
+				flag = false;
+
+				if ((app.at(l)).compare(words[k]) == 0)
+				{
+					//cout << occ.at(l) << endl;
+					int tmp = occ.at(l);
+					tmp ++;
+					occ.erase(occ.begin() + l);
+					occ.insert(occ.begin()+l, tmp);
+					//cout << words[k]<<occ.at(l)<<endl;
+					flag = true;
+					break;
+				}
+			}
+			if (flag == false)
+			{
+				app.push_back(words[k]);
+				occ.push_back(1);
+			}
+		}
+	}
+	cout << occ.at(3)<<endl << app.at(3) << endl;
+	
+	
 }

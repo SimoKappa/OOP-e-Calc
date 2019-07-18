@@ -15,6 +15,14 @@ extern "C" {
 JNIEXPORT void JNICALL Java_it_project_SpringBootProject_Service_NativeStats_nativeInt
   (JNIEnv *, jobject, jdoubleArray, jint, jdoubleArray);
 
+/*
+ * Class:     it_project_SpringBootProject_Service_NativeStats
+ * Method:    nativeString
+ * Signature: ([Ljava/lang/String;I)V
+ */
+JNIEXPORT void JNICALL Java_it_project_SpringBootProject_Service_NativeStats_nativeString
+  (JNIEnv *, jobject, jobjectArray, jint);
+
 #ifdef __cplusplus
 }
 #endif

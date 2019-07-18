@@ -3,6 +3,7 @@ package it.project.SpringBootProject.Service;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.http.HttpStatus;
@@ -423,6 +424,31 @@ public class ReportServiceImpl implements ReportService<Report, Object> {
 		stats = nativeStats.statsDouble(j); // chiama la funzione che chiamerà il metodo nativo
 		statsNum.add(new StatsNum(param + " estratto con jni", stats[0], stats[1], stats[2], stats[4], j, stats[3]));
 		return statsNum;
+	}
+	
+	public List<?> reportStatsStrJni(String param){
+		String parole[] = new String[i];
+		int j = 0;
+		try
+		{
+		for( Report report : reports) {
+			parole[j] = (String) (report.getClass().getMethod("get" + param.substring(0, 1).toUpperCase() + param.substring(1), null)).invoke(report);
+			j++;
+		}
+		} catch(NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} 
+		NativeStats ns = new NativeStats();
+		ns.nativeString(parole, j);
+		return null;
 	}
 
 }
