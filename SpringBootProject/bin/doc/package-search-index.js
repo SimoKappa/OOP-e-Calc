@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"it.project.SpringBootProject"},{"l":"it.project.SpringBootProject.Controller"},{"l":"it.project.SpringBootProject.Model"},{"l":"it.project.SpringBootProject.Service"}]

@@ -6,10 +6,8 @@ package it.project.SpringBootProject.Model;
  * @author Danilo Tomassini e Simone Cappella
  *
  */
-public class StatsStrPeriod {
-	private String attributo;
+public class StatsStrPeriod extends StatsStr{
 	private String periodo;
-	private int occorrenze;
 
 	/**
 	 * costruttore

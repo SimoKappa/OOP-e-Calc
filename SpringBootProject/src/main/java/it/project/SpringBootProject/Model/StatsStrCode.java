@@ -6,10 +6,8 @@ package it.project.SpringBootProject.Model;
  * @author Danilo Tomassini e Simone Cappella
  *
  */
-public class StatsStrCode {
-	private String attributo;
+public class StatsStrCode extends StatsStr{
 	private String code;
-	private int occorrenze;
 
 	/**
 	 * costruttore

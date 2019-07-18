@@ -6,10 +6,8 @@ package it.project.SpringBootProject.Model;
  * @author Danilo Tomassini e Simone Cappella
  *
  */
-public class StatsStrCountry {
-	private String attributo;
+public class StatsStrCountry extends StatsStr{
 	private String country;
-	private int occorrenze;
 
 	/**
 	 * costruttore

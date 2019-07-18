@@ -8,8 +8,7 @@ package it.project.SpringBootProject.Model;
  * @author Danilo Tomassini e Simone Cappella
  *
  */
-public class StatsNum {
-	private String data;
+public class StatsNum extends Stats{
 	private double avg;
 	private double min;
 	private double max;
@@ -28,8 +27,8 @@ public class StatsNum {
 	 * @param count conta degli elementi
 	 * @param dev   deviazione standard
 	 */
-	public StatsNum(String data, double avg, double min, double max, double sum, int count, double dev) {
-		this.data = data;
+	public StatsNum(String attributo, double avg, double min, double max, double sum, int count, double dev) {
+		this.attributo = attributo;
 		this.avg = avg;
 		this.min = min;
 		this.max = max;
@@ -43,8 +42,8 @@ public class StatsNum {
 	 * 
 	 * @return attributo
 	 */
-	public String getdata() {
-		return data;
+	public String getAttributo() {
+		return attributo;
 	}
 
 	/**
