@@ -29,8 +29,7 @@ import it.project.SpringBootProject.Model.StatsStrPeriod;
 @Service
 public class ReportServiceImpl implements ReportService<Report, Object> {
 
-	public native void nativeStats();
-
+	//public native void nativeStats();
 	private static List<Report> reports = new ArrayList<>();
 	private FilterService<Report> filter;
 	private static List<StatsNum> statsNum = new ArrayList<>();
@@ -42,10 +41,6 @@ public class ReportServiceImpl implements ReportService<Report, Object> {
 
 	public ReportServiceImpl(FilterService<Report> filter) {
 		this.filter = filter;
-	}
-
-	public ReportServiceImpl() {
-
 	}
 
 	/**
@@ -451,11 +446,6 @@ public class ReportServiceImpl implements ReportService<Report, Object> {
 		} 
 		NativeStats ns = new NativeStats();
 		ns.nativeString(parole, j);
-		int i = 0;
-		for (String paroleArrayList : parole) {
-			System.out.println(parole[i]);
-			i++;
-		}
 		return null;
 	}
 
