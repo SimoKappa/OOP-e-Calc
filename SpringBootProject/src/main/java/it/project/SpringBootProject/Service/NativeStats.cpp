@@ -39,18 +39,19 @@ JNIEXPORT void JNICALL Java_it_project_SpringBootProject_Service_NativeStats_nat
 	env->ReleaseDoubleArrayElements(dat, stats, JNI_COMMIT);
 }
 
-JNIEXPORT void JNICALL Java_it_project_SpringBootProject_Service_NativeStats_nativeString(JNIEnv * env, jobject obj, jobjectArray array, jint i)
+JNIEXPORT jobjectArray JNICALL Java_it_project_SpringBootProject_Service_NativeStats_nativeString(JNIEnv * env, jobject obj, jobjectArray array, jint i, jintArray occres, jintArray occdim)
 {
 	string words[i];
+	//converto in un array di stringhe
 	for (int k = 0; k < i; k++)
 	{
 		jobject row = env->GetObjectArrayElement(array, k);
 		const char* cvalue = env->GetStringUTFChars((jstring)row, JNI_FALSE);
 		words[k] = cvalue;
 	}
-	int a = 0;
+	//creo i vector in cui inserire rispettivamente parola e occorrenza
 	vector<string> app;
-	vector<int> occ;
+	vector<jint> occ;
 	bool flag;
 	
 	for (int k = 0; k < i; k++)
@@ -59,7 +60,6 @@ JNIEXPORT void JNICALL Java_it_project_SpringBootProject_Service_NativeStats_nat
 		{
 			app.push_back(words[k]);
 			occ.push_back(1);
-			a++;
 		}
 		else
 		{
@@ -69,16 +69,15 @@ JNIEXPORT void JNICALL Java_it_project_SpringBootProject_Service_NativeStats_nat
 
 				if ((app.at(l)).compare(words[k]) == 0)
 				{
-					//cout << occ.at(l) << endl;
 					int tmp = occ.at(l);
 					tmp ++;
 					occ.erase(occ.begin() + l);
 					occ.insert(occ.begin()+l, tmp);
-					//cout << words[k]<<occ.at(l)<<endl;
 					flag = true;
 					break;
 				}
 			}
+			//se la parola non è tra le parole già contate la aggiungo
 			if (flag == false)
 			{
 				app.push_back(words[k]);
@@ -86,12 +85,27 @@ JNIEXPORT void JNICALL Java_it_project_SpringBootProject_Service_NativeStats_nat
 			}
 		}
 	}
+	//array che utilizzo per riconvertire i vector in array da ripassare all'app Java
+	string paroleord[app.size()];
+	jint occur[occ.size()];
 
-	for (int i = 0; i < app.size(); i++) {
-		cout << occ.at(i) << endl << app.at(i) << endl;
+	for (int k = 0; k < app.size(); k++)
+	{
+		paroleord[k] = app.at(k);
+		occur[k] = occ.at(k);
+	}
+	jint dimoc[1];
+	dimoc[0] = occ.size();
+	env->ReleaseIntArrayElements(occres, occur, JNI_COMMIT);
+	env->ReleaseIntArrayElements(occdim, dimoc, JNI_COMMIT);
+	
+	jobjectArray ret;
+	ret = (jobjectArray)env->NewObjectArray(app.size(), env->FindClass("java/lang/String"), 0);
+	for (int k = 0; k < app.size(); k++)
+	{
+		env->SetObjectArrayElement(ret, k,env->NewStringUTF(paroleord[k].c_str()));
 	}
 
-	
+	return ret;
 
-	
 }
