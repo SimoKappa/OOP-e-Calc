@@ -220,7 +220,7 @@ public class ReportServiceImpl implements ReportService<Report, Object> {
 			// gestione del caso in cui il dataset non sia stato ancora importato
 		} else {
 			String querString = new String(
-					"il dataset non è stato ancora importato, chiamare la rotta /localhost:8080/");
+					"Il dataset non è stato ancora importato, chiamare la rotta /localhost:8080/");
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, querString);
 		}
 		// calcolata la deviazione standard
@@ -376,7 +376,7 @@ public class ReportServiceImpl implements ReportService<Report, Object> {
 			// gestione del caso in cui il dataset non sia ancora stato importato
 		} else {
 			String querString = new String(
-					"il dataset non è stato ancora importato, chiamare la rotta /localhost:8080/");
+					"Il dataset non è stato ancora importato, chiamare la rotta /localhost:8080/");
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, querString);
 		}
 	}
@@ -413,7 +413,7 @@ public class ReportServiceImpl implements ReportService<Report, Object> {
 			// gestione del caso in cui il dataset non sia stato ancora importato
 		} else {
 			String querString = new String(
-					"il dataset non è stato ancora importato, chiamare la rotta /localhost:8080/");
+					"Il dataset non è stato ancora importato, chiamare la rotta /localhost:8080/");
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, querString);
 		}
 		NativeStats nativeStats = new NativeStats(valori, j); // crea l'oggetto della classe
@@ -424,17 +424,18 @@ public class ReportServiceImpl implements ReportService<Report, Object> {
 	
 	public List<?> reportStatsStrJni(String param){
 		String parole[] = new String[i];
-		ArrayList<String> contate;
-		ArrayList<Integer> occorrenze;
 		int j = 0;
+		if(!reports.isEmpty())
+		{
 		try
 		{
 		for( Report report : reports) {
+			//popolo l'array con il risultato del getter associato al parametro passato
 			parole[j] = (String) (report.getClass().getMethod("get" + param.substring(0, 1).toUpperCase() + param.substring(1), null)).invoke(report);
 			j++;
 		}
 		} catch(NoSuchMethodException e) {
-			e.printStackTrace();
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, param + " non è un parametro valido.");
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		} catch (IllegalArgumentException e) {
@@ -443,10 +444,59 @@ public class ReportServiceImpl implements ReportService<Report, Object> {
 			e.printStackTrace();
 		} catch (SecurityException e) {
 			e.printStackTrace();
-		} 
+		} catch (ClassCastException e)
+		{
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, param + " non è un parametro valido.");
+		}
+		//array di appoggio con dimensione pari al numero di parole ritornate dal get (perche non so quante ne tornano)
+		int [] occresapp = new int[j];
+		//array con un solo valore che rappresenta la lunghezza dell'array con le occorrenze
+		int [] occdim = new int[1];
+		String [] parres = new String[j];
 		NativeStats ns = new NativeStats();
-		ns.nativeString(parole, j);
-		return null;
+		//chiamo metodo natio
+		parres = (String[]) ns.nativeString(parole, j, occresapp, occdim);
+		int [] occres = new int[occdim[0]];
+		for (int k=0 ; k<occdim[0]; k++)
+		{
+			//riduco l'array alla dimensione corretta
+			occres[k] = occresapp[k];
+		}
+		//creo gli oggetti corrispondenti
+		if (param.equals("country"))
+		{
+			statsStrCountry.clear();
+			for(int k= 0; k<occdim[0]; k++)
+			{
+				statsStrCountry.add(new StatsStrCountry(param, parres[k], occres[k]));
+			}
+			return statsStrCountry;
+		}else if (param.equals("code"))
+		{
+			statsStrCode.clear();
+			for(int k= 0; k<occdim[0]; k++)
+			{
+				statsStrCode.add(new StatsStrCode(param, parres[k], occres[k]));
+			}
+			return statsStrCode;
+		}else if (param.equals("item"))
+		{
+			statsStrItem.clear();
+			for(int k=0; k<occdim[0]; k++)
+			{
+				statsStrItem.add(new StatsStrItem(param, parres[k], occres[k]));
+			}
+			return statsStrItem;
+		}else if (param.equals("refperiod"))
+		{
+			statsStrPeriod.clear();
+			for(int k = 0; k<occdim[0]; k++)
+			{
+				statsStrPeriod.add(new StatsStrPeriod(param, parres[k], occres[k]));
+			}
+			return statsStrPeriod;
+		}else throw new ResponseStatusException(HttpStatus.BAD_REQUEST, param + " non è un parametro valido."); //non si verifica mai
+	}else throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Il dataset non è stato ancora importato, chiamare la rotta /localhost:8080/");
 	}
 
 }

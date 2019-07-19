@@ -18,10 +18,10 @@ JNIEXPORT void JNICALL Java_it_project_SpringBootProject_Service_NativeStats_nat
 /*
  * Class:     it_project_SpringBootProject_Service_NativeStats
  * Method:    nativeString
- * Signature: ([Ljava/lang/String;I)V
+ * Signature: ([Ljava/lang/String;I[I[I)[Ljava/lang/String;
  */
-JNIEXPORT void JNICALL Java_it_project_SpringBootProject_Service_NativeStats_nativeString
-  (JNIEnv *, jobject, jobjectArray, jint);
+JNIEXPORT jobjectArray JNICALL Java_it_project_SpringBootProject_Service_NativeStats_nativeString
+  (JNIEnv *, jobject, jobjectArray, jint, jintArray, jintArray);
 
 #ifdef __cplusplus
 }

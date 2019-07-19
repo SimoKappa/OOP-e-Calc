@@ -12,9 +12,9 @@ public class NativeStats { //classe per implementare il metodo nativo
 	double[] dat = {0, 0, 0, 0, 0};
 	
 	
-	public native void nativeInt(double[] valori, int i, double[] dat); // prototipo metodo nativo
+	public native void nativeInt(double[] valori, int i, double[] dat); // prototipo metodo nativo per numeri
 	
-	public native void nativeString(String[] parole, int i);
+	public native String[] nativeString(String[] parole, int i, int[] occres, int[] occdim); //metodo nativo per stringhe
 
 	public NativeStats(double valoriInt[], int count) {
 		this.valori = valoriInt;
