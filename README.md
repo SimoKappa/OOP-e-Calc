@@ -15,7 +15,16 @@ Per le stringhe, invece.<br/>
 
 
 ## Filtri
-spiegare come sono stati implementati i filtri
+I filtri vengono applicati tramite la seguente rotta:<br/>
+![immagine](https://user-images.githubusercontent.com/48387175/61541282-a803e580-aa3f-11e9-8c56-eb2223ee9693.png)<br/>
+I filtri sono 4 in totale, due logici e due condizionali.<br/> 
+Forma filtri logici:<br/>
+![immagine](https://user-images.githubusercontent.com/48387175/61541485-0761f580-aa40-11e9-93e8-05e435ca9c2d.png)<br/>
+![immagine](https://user-images.githubusercontent.com/48387175/61541568-32e4e000-aa40-11e9-9b59-790d5db6b3ad.png)<br/>
+Forma filtri condizionali:<br/>
+![immagine](https://user-images.githubusercontent.com/48387175/61541860-b69ecc80-aa40-11e9-824c-45088fbb41db.png)<br/>
+![immagine](https://user-images.githubusercontent.com/48387175/61542069-1d23ea80-aa41-11e9-83db-46e569935a49.png)<br/>
+I filtri vanno inviati al server tramite metodo POST. Abbiamo deciso di utilizzare questo metodo per variarie le tipologie di richieste presenti nell'applicazione.
 
 # Diagrammi
 **Use case diagram:**
@@ -54,3 +63,12 @@ Sugli attributi di tipo **Stringa**, tramite la rotta **reports/stats/str/(count
 I filtri condizionali sono **\$lt** (vengono estratti i dati il cui attributo specificato è minore del valore indicato) o **\$gt** (vengono estratti i dati il cui attributo specificato è minore del valore indicato).<br/>
 ![filtro condizionale](https://user-images.githubusercontent.com/49287565/61210676-86cc8d80-a6fd-11e9-9461-e9101103799b.png)<br/>
 **NOTA:** vengono gestiti i casi di sintassi del filtro errata o attributo errato.
+- **Estrazione delle statistiche tramite JNI:** le statistiche posso essere estratte anche tramite delle rotte differenti che innescano un metodo nativo (Scritto in C++) che restituisce il tutto.<br/>
+![immagine](https://user-images.githubusercontent.com/48387175/61542974-de8f2f80-aa42-11e9-8095-0c7cedf1d6a6.png)<br/>
+> Per gli attributi di tipo **numerico** si utilizzi la seguente rotta: **reports/stats/num/(nca,value,extraction)/jni**.<br/>
+![immagine](https://user-images.githubusercontent.com/48387175/61543020-f36bc300-aa42-11e9-9958-8fe3a9b1816b.png)<br/>
+> Per gli attributi di tipo **stringa** si utilizzi invece la seguente rotta: **reports/stats/num/(item,country,refperiod,code)/jni**.<br/>
+
+**NOTA BENE #1: è necessario all'avvio dell'applicazione richiamare la rotta di default per la generazione degli oggetti.**<br/>
+**NOTA BENE #2: abbiamo ritenuto opportuno gestire i casi di errore nell'inserimento di una rotta tramite un reindirizzamento alla rotta di default localhost:8080.**
+
