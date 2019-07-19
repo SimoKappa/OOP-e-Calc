@@ -24,7 +24,8 @@ Forma filtri logici:<br/>
 Forma filtri condizionali:<br/>
 ![immagine](https://user-images.githubusercontent.com/48387175/61541860-b69ecc80-aa40-11e9-824c-45088fbb41db.png)<br/>
 ![immagine](https://user-images.githubusercontent.com/48387175/61542069-1d23ea80-aa41-11e9-83db-46e569935a49.png)<br/>
-I filtri vanno inviati al server tramite metodo POST. Abbiamo deciso di utilizzare questo metodo per variarie le tipologie di richieste presenti nell'applicazione.
+I filtri vanno inviati al server tramite metodo POST. Abbiamo deciso di utilizzare questo metodo per variarie le tipologie di richieste presenti nell'applicazione.<br/>
+L'utente ha la possibilità di inserire entrambe le tipologie di filtro mediante la richiesta POST ad una stessa rotta in quanto tramite il parsing del body verranno gestiti tutti i casi possibili: filtro condizionale, logico o eventuali errori di inserimento.<br/>
 
 # Diagrammi
 **Use case diagram:**
