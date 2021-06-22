@@ -71,5 +71,5 @@ I filtri condizionali sono **\$lt** (vengono estratti i dati il cui attributo sp
 > Per gli attributi di tipo **stringa** si utilizzi invece la seguente rotta: **reports/stats/num/(item,country,refperiod,code)/jni**.<br/>
 
 **NOTA BENE #1: è necessario all'avvio dell'applicazione richiamare la rotta di default per la generazione degli oggetti.**<br/>
-**NOTA BENE #2: abbiamo ritenuto opportuno gestire i casi di errore nell'inserimento di una rotta tramite un reindirizzamento alla rotta di default localhost:8080.**
+**NOTA BENE #2: abbiamo ritenuto opportuno gestire i casi di errore nell'inserimento di una rotta tramite un reindirizzamento alla rotta di default 'localhost:8080/'.**
 
