@@ -73,3 +73,4 @@ I filtri condizionali sono **\$lt** (vengono estratti i dati il cui attributo sp
 **NOTA BENE #1: è necessario all'avvio dell'applicazione richiamare la rotta di default per la generazione degli oggetti.**<br/>
 **NOTA BENE #2: abbiamo ritenuto opportuno gestire i casi di errore nell'inserimento di una rotta tramite un reindirizzamento alla rotta di default 'localhost:8080/'.**
 
+*This is a university project therefore it is in a embryonic state.*
