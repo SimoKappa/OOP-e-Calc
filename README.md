@@ -1,6 +1,6 @@
 
-# OOP-e-Calc
-Progetto di OOP <br/>
+# OOP e Reti di calcolatori
+
 # Descrizione delle implementazioni
 ## Statistiche
 Le statistiche vengono estratte tramite le seguenti rotte nel controller.
